@@ -57,8 +57,7 @@ public class Server extends WebSocketServer {
 		JSONObject obj = new JSONObject();
 		obj.put("action", "device_removed");
 		obj.put("message", rid);
-		sendToAll(obj.toJSONString()); 
-		
+		sendToAll(obj.toJSONString());  
 	}
 
 	@Override
@@ -80,8 +79,13 @@ public class Server extends WebSocketServer {
 			if (act.equals("cordinates")) {
 				System.out.println(mess);
 				
-				cl.get(conn.getUID()).cordinates(mess);
-				conn.send("Cods Received!!");
+				cl.get(conn.getUID()).cordinates(mess); 
+                                
+                                JSONObject tSn = new JSONObject();
+				tSn.put("action", "log");
+				tSn.put("message", "Cods Received");
+				conn.send(tSn.toJSONString()); 
+                                
 			} 
 
 			if (act.equals("getAllUserCord")) {
